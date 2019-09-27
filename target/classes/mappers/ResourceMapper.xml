@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.T4.mapper.ResourceMapper">
+    <resultMap id="resourceMap" type="cn.T4.domain.Resources">
+        <id property="id" column="id"></id>
+        <result column="key" property="key"/>
+        <result column="val" property="val"/>
+        <result column="sortnum" property="sortnum"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!--List<Resources> selectAllByStatusAndSortNumAsc();-->
+    <select id="selectAllByStatusAndSortNumAsc" resultType="cn.T4.domain.Resources">
+        SELECT * FROM d2_resources where status = 1 order by sortnum asc
+    </select>
+
+</mapper>

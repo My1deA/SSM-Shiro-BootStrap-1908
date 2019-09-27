@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+
+
+    <!-- =========================================================
+         Shiro Core Components - Not Spring Specific
+         ========================================================= -->
+
+
+    <!--缓存框架
+           ehcache Let's use some enterprise caching support for better performance.  You can replace this with any enterprise
+       caching framework implementation that you like (Terracotta+Ehcache, Coherence, GigaSpaces, etc -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <!-- Set a net.sf.ehcache.CacheManager instance here if you already have one.  If not, a new one
+             will be creaed with a default config:
+             <property name="cacheManager" ref="ehCacheManager"/> -->
+        <!-- If you don't have a pre-built net.sf.ehcache.CacheManager instance to inject, but you want
+             a specific Ehcache configuration to be used, specify that here.  If you don't, a default
+             will be used.:
+        <property name="cacheManagerConfigFile" value="classpath:some/path/to/ehcache.xml"/> -->
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+    </bean>
+
+    <!-- 配置 securityManager
+          Shiro's main business-tier object for web-enabled applications
+       (use DefaultSecurityManager instead when there is no web environment)-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--配置缓存-->
+        <property name="cacheManager" ref="cacheManager"/>
+        <!--单例模式 Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <!--<property name="sessionMode" value="native"/>-->
+
+        <!--自定义realm -->
+        <property name="realm" ref="userRealm"/>
+    </bean>
+
+
+    <!-- 凭证匹配器 -->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <!-- 使用Spring构造器注入cacheManager -->
+        <!--<constructor-arg ref="cacheManager"/>-->
+        <!-- 指定散列算法名称 -->
+        <property name="hashAlgorithmName" value="md5"/>
+        <!-- 指定散列迭代的次数 -->
+        <property name="hashIterations" value="2"/>
+        <!-- 是否储存散列后的密码为16进制，需要和生成密码时的一样，默认是base64 -->
+        <property name="storedCredentialsHexEncoded" value="true"/>
+    </bean>
+
+    <!-- 配置自己的UserRealm
+            Used by the SecurityManager to access security data (users, roles, etc).
+         Many other realm implementations can be used too (PropertiesRealm,
+         LdapRealm, etc. -->
+    <bean id="userRealm" class="cn.T4.shiro.UserRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
+
+    <!--Session ID 生成器-->
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"></bean>
+    <!--SessionDao-->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+    <!--session会话管理器-->
+    <bean id="sessionManager" class="org.apache.shiro.session.mgt.DefaultSessionManager">
+        <property name="globalSessionTimeout" value="1800000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+
+
+    <!-- =========================================================
+         Shiro Spring-specific integration 特有整合
+         ========================================================= -->
+    <!-- Post processor that automatically invokes init() and destroy() methods
+         for Spring-configured Shiro objects so you don't have to
+         1) specify an init-method and destroy-method attributes for every bean
+            definition and
+         2) even know which Shiro objects require these methods to be
+            called. -->
+
+    <!--声明周期-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 启动 Shiro Annotations
+            Enable Shiro Annotations for Spring-configured beans.  Only run after
+         the lifecycleBeanProcessor has run: -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 远程调用安全
+            Secure Spring remoting:  Ensure any Spring Remoting method invocations can be associated
+         with a Subject for security checks. -->
+    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- 定义shiroFilter bean id 和web.xml相同
+            Define the Shiro Filter here (as a FactoryBean) instead of directly in web.xml -
+         web.xml uses the DelegatingFilterProxy to access this bean.  This allows us
+         to wire things with more control as well utilize nice Spring things such as
+         PropertiesPlaceholderConfigurer and abstract beans or anything else we might need: -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!--未认证的访问的页面-->
+        <property name="loginUrl" value="/login.jsp"/>
+        <!--登录成功后访问的页面-->
+        <property name="successUrl" value="/index.jsp"/>
+        <!--未授权也能访问的页面-->
+        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <!-- The 'filters' property is not necessary since any declared javax.servlet.Filter bean
+             defined will be automatically acquired and available via its beanName in chain
+             definitions, but you can perform overrides or parent/child consolidated configuration
+             here if you like: -->
+        <!-- <property name="filters">
+            <util:map>
+                <entry key="aName" value-ref="someFilterPojo"/>
+            </util:map>
+        </property> -->
+        <!--
+        <property name="filterChainDefinitions">
+            <value>
+                &lt;!&ndash;map key value
+                    请求访问的URL资源 = 拦截器
+                    ANT风格 ？任意一个字符   /* 任意内容 /** 任意目录内容
+
+                    anno 匿名拦截器 （未认证情况下允许访问）
+                    authc 认证拦截器 （认证成功下允许访问）
+                    logout 认证过滤器
+                    roles[角色名称] 角色过滤器
+
+                    &ndash;&gt;
+                &lt;!&ndash;/logout=logout 可以用&ndash;&gt;
+                &lt;!&ndash;# everything else requires authentication:
+                /index.jsp = authc&ndash;&gt;
+
+
+                /static/** = anon
+                /js/** = anon
+                /css/** = anon
+                /image/** = anon
+                /user/login=anon
+                /index=anon
+                /logout=logout
+
+                /student.jsp=roles[stu]
+                /teacher.jsp=roles[tea]
+                /list.jsp=roles[tea,stu]
+
+                /**=authc
+            </value>
+        </property>-->
+
+        <!--工厂注入-->
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"></property>
+    </bean>
+
+    <!--工厂注入-->
+    <!--工厂注入 构建bean-->
+    <bean id="filterChainDefinitionMapBuilder" class="cn.T4.credentials.FilterChainDefinitionMapBuilder"></bean>
+    <bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder" factory-method="builder"></bean>
+
+
+</beans>

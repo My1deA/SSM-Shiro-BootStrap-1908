@@ -1,0 +1,289 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+#footWrap .foot_ieg_logo, #footWrap .logo-riot, .act-link, .comm-avatar-border, .comm-icon-phone, .comm-icon-search, .head-app-hover, .head-userinfo-avatar>span, .icon-dsj, .icon-hot, .icon-new, .icon-xx-1, .logined-top .select-area:after, .logo-riot, .logo-tencentgame, .top-act-link, .topfoot-spr, .zm-hover-bg {
+    background-image: url(//game.gtimg.cn/images/lol/v3/topfoot-spr.png);
+    background-size: 405px 178px;
+    background-repeat: no-repeat;
+}
+
+.form-center{
+    margin: 18% auto;
+    text-align: center;
+}
+
+
+body,botton,input,select,textarea{
+    font:12px/1.5 tahoma,'\5FAE\8F6F\96C5\9ED1',sans-serif
+}
+
+body,div{
+    display: block;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+ul,menu,dir{
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-block-start: 40px;
+}
+
+
+li{
+    display: list-item;
+}
+
+/*以上是通用样式*/
+
+/* 头部导航栏布局 初始化大小*/
+.head-start{
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 11;/*设置z-index 表示在背景图之前*/
+    overflow: visible;
+    background:linear-gradient(rgba(0,0,0,1), rgba(0, 0, 0, 0));/*渐变色 black-> apparent*/
+}
+/*头部导航栏 水平居中*/
+.head-normal{
+    max-width: 1358px;
+    min-width: 1230px;
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+}
+
+    /*头部logo 在左边*/
+.head-start .logo{
+    float:left;
+    width: 132px;
+    height: 49px;
+    margin-top: 14px;
+}
+    /*头部 菜单项 向左float*/
+.head-nav-ul{
+    float: left;
+    height: 78px;
+    width: 60%;
+    margin-left: 40px;
+    padding-top: 12px;
+    box-sizing: border-box;
+}
+    /*ul 默认样式是向下*/
+.head-nav-ul>li{
+   /* float: left;*/
+    list-style: none;
+    width: 20%;
+    height: 78px;
+    text-align: center;
+}
+    /*中文*/
+.head-nav-cn{
+    display: block;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #f7f7f7;
+}
+    /*英文*/
+.head-nav-en{
+    display: block;
+    color: #aeaeae;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-top: -1px;
+}
+    /*用户信息栏 头像+登录 float right*/
+.head-userinfo-normal{
+    float: right;
+    width: 244px;
+    height: 78px;
+    position: relative;
+    z-index: 3;
+}
+    /*用户头像 float left*/
+.head-userinfo-avatar{
+    float: left;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    text-align: center;
+    margin-top: 18px;
+    line-height: 48px;
+    font-size: 0;
+}
+    /*用户头像图片信息*/
+.head-userinfo-avatar>img{
+    display: inline-block;
+    vertical-align: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+    /*用户头像图片信息*/
+.head-userinfo-avatar>span{
+    display: block;
+    width: 48px;
+    height: 48px;
+    background-padding: -216px -117px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+    /*用户信息*/
+.head-userinfo-brief{
+    float: left;
+    margin-left:15px;
+}
+    /*用户信息 未登录的 提示*/
+.head-userinfo-brief> .unlogin{
+    font-size: 16px;
+    line-height: 78px;
+    color: #f7f7f7;
+    padding: 0;
+    margin: 0;
+}
+
+.head-userinfo-brief>.unlogin>a {
+    color: #fff3d0;
+}
+
+.head-app-normal{
+    float: right;
+    width: 40px;
+    height: 40px;
+    margin: 30px 25px 0 0;
+    line-height: 40px;
+    text-align: center;
+}
+
+.comm-icon-phone{
+    display: inline-block;
+    vertical-align: middle;
+    background-position: -303px -84px;
+    width: 16px;
+    height: 24px;
+}
+.head-search-btn{
+    float: right;
+    width: 40px;
+    height: 40px;
+    margin: 30px 10px 0 0;
+    line-height: 40px;
+    text-align: center;
+}
+.comm-icon-search{
+    display: inline-block;
+    vertical-align: middle;
+    background-position: -381px -39px;
+    width: 21px;
+    height: 21px;
+}
+
+    /*鼠标移动到登录*/
+.head-login-hover{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: -34px;
+    width: 310px;
+    height: auto;
+    padding-top:80px;
+    overflow: hidden;
+    background: url(//game.gtimg.cn/images/lol/v3/dark70-bg-repeat.png) repeat;
+    text-align: center;
+}
+/*主要图片*/
+.comm-topact{
+    width: 100%;
+    min-width: 1230px;
+    height: 360px;
+    overflow: hidden;
+    position: relative;
+    background: center top no-repeat;
+    transition: height .6s,background,.6s;
+}
+    /*图片大小*/
+.topact-big-img,topact-big-img{
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1920px;
+    height: 100%;
+    margin-left: -960px;
+    background: url(//game.gtimg.cn/images/lol/v3/dark60-bg-repeat.png) repeat;
+    overflow: hidden;
+}
+    /*导航栏*/
+.head-nav-sub{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: url(//game.gtimg.cn/images/lol/v3/dark60-bg-repeat.png) repeat;
+    overflow: hidden;
+    padding: 70px 0 32px 90px;
+}
+    /*导航栏内部*/
+.head-nav-sub-innner{
+    width: 100%;
+    height: auto;
+    max-width: 1358px;
+    max-height: 1250px;
+    margin: 0 auto;
+}
+    /*列表 ul*/
+.head-nav-sub ul{
+    width: 60%;
+    overflow: hidden;
+    margin-left: 161px;
+}
+    /*列表 li*/
+.head-nav-sub ul>li{
+    list-style: none;
+    width: 20%;
+    /*float: left;*/
+    height: auto;
+    overflow: visible;
+}
+    /*连接*/
+.head-nav-sub-a{
+    display: block;
+    width: 100px;
+    height: 29px;
+    overflow: hidden;
+    font-size: 14px;
+    text-align: center;
+    color: #e1e1e1;
+    line-height: 28px;
+}
+    /*移动到连接上*/
+.head-nav-sub-a:hover{
+    display: block;
+    width: 100px;
+    height: 29px;
+    overflow: hidden;
+    font-size: 14px;
+    text-align: center;
+    color: orange;
+    line-height: 28px;
+    text-decoration: none;
+}

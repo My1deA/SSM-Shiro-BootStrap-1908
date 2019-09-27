@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.T4.mapper.UserMapper">
+    <resultMap id="userMap" type="cn.T4.domain.User">
+        <id property="id" column="id"></id>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="SMALLINT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--void insertUser(User user);-->
+    <insert id="insertUser" parameterType="cn.T4.domain.User">
+        insert into d2_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id !=null">
+                id,
+            </if>
+            <if test="username !=null">
+                username,
+            </if>
+            <if test="password !=null">
+                password,
+            </if>
+            <if test="name !=null">
+                name,
+            </if>
+            <if test="status !=null">
+                status,
+            </if>
+            <if test="remark !=null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id !=null">
+                #{id},
+            </if>
+            <if test="username !=null">
+                #{username},
+            </if>
+            <if test="password !=null">
+                #{password},
+            </if>
+            <if test="name !=null">
+                #{name},
+            </if>
+            <if test="status !=null">
+                #{status},
+            </if>
+            <if test="remark !=null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+
+    <!--    void deleteUserById(Integer id);-->
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        delete from d2_user where id = #{id};
+
+    </delete>
+
+    <!--    void updateUser(User user);-->
+    <update id="updateUser" parameterType="cn.T4.domain.User">
+        update d2_user
+        <set >
+            <if test="username !=null">
+                username=#{username},
+            </if>
+            <if test="password !=null">
+                password=#{password},
+            </if>
+            <if test="name !=null">
+                name=#{name},
+            </if>
+            <if test="status !=null">
+                status=#{status},
+            </if>
+            <if test="remark !=null">
+                remark=#{remark},
+            </if>
+        </set>
+        where  id = #{id}
+    </update>
+
+
+    <!--    User selectUserById(Integer id);-->
+    <select id="selectUserById" parameterType="java.lang.Integer" resultType="cn.T4.domain.User">
+        select * from d2_user where id =#{id}
+    </select>
+
+    <!--    User selectUserByUsername(String username);-->
+    <select id="selectUserByUsername" parameterType="java.lang.String" resultType="cn.T4.domain.User">
+        select * from d2_user where username = #{username}
+    </select>
+
+    <!--    //根据用户名查询所有的角色信息
+        Set<User> selectRnameByUsername(String username);-->
+    <select id="selectRnameByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+        select r.r_name from d2_user u
+        left join d2_user_role ur on u.id=ur.u_id
+        left join d2_role r on ur.r_id=r.id
+        where u.username=#{username}
+    </select>
+
+    <!--    //查询所有角色的方法
+        Set<String> selectRoleAllRname();-->
+    <select id="selectRoleAllRname">
+        select r_name from d2_role where status = 1
+    </select>
+
+
+</mapper>
