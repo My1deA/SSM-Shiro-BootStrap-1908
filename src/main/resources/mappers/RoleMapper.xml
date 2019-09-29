@@ -93,13 +93,25 @@
 
     <!--    /*根据role id 来 对应的 权限 查询 */
         Set<String> selectPermisisonByR_name(String r_name);-->
+    <select id="selectPermisisonByR_name" parameterType="java.lang.String" resultType="String">
+        select p.permission from d2_role r,d2_permission p,d2_role_permission rp
+        where r.id=rp.r_id
+        and rp.p_id=p.id
+        and r_name=#{r_name}
+    </select>
 
     <!--    /*让role 增加相应的权限 */
         void connectRoleAndPermission(@Param("r_id") Integer r_id,@Param("p_id")Integer p_id);-->
-
+    <insert id="connectRoleAndPermission" parameterType="Integer">
+        insert into d2_role_permission(r_id,p_id)
+        values (#{r_id},#{p_id})
+    </insert>
 
     <!--    /*让role 减少相应的权限*/
         void disConnectRoleAndPermission(@Param("r_id") Integer r_id,@Param("p_id") Integer p_id);-->
+    <insert id="disConnectRoleAndPermission" parameterType="Integer">
+        delete form d2_role_permission where r_id=#{r_id} and p_id=#{p_id}
+    </insert>
 
 
 </mapper>
