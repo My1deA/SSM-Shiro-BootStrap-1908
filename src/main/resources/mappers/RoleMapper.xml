@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.T4.mapper.RoleMapper">
+
+    <resultMap id="RoleMap" type="cn.T4.domain.Role">
+        <id property="id" column="id"></id>
+        <result property="r_name" column="r_name"></result>
+        <result property="remark" column="remakr"></result>
+        <result property="status" column="status"></result>
+        <result property="parentid" column="parentid"></result>
+    </resultMap>
+
+    <!--    //保存
+        void save(Role role);-->
+    <insert id="save" parameterType="cn.T4.domain.Role">
+        insert into d2_role(
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="r_name!=null">
+                r_name,
+            </if>
+            <if test="remark!=null">
+                remark,
+            </if>
+            <if test="status!=null">
+                status,
+            </if>
+            <if test="parentid!=null">
+                parentid,
+            </if>
+        </trim>
+        )
+        values
+        (
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="r_name!=null">
+                #{r_name},
+            </if>
+            <if test="remark!=null">
+                #{remark},
+            </if>
+            <if test="status!=null">
+                #{status},
+            </if>
+            <if test="parentid!=null">
+                #{parentid},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <!--    void delete(Integer id);-->
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from d2_role where id=#{id};
+    </delete>
+
+
+    <!--    void update(Role role);-->
+    <update id="update" parameterType="cn.T4.domain.Role">
+        update d2_role
+        <set>
+            <if test="r_name!=null||r_name!='">
+                r_name=#{r_name},
+            </if>
+            <if test="remark!=null||remark!='">
+                remark=#{remark},
+            </if>
+            <if test="status!=null||status!='">
+                status=#{status},
+            </if>
+            <if test="parentid!=null||parentid!=''">
+                parentid=#{parentid},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--    Role select(Integer id);-->
+    <select id="select" parameterType="java.lang.Integer" resultType="cn.T4.domain.Role">
+        select * from d2_role where  id =#{id}
+    </select>
+
+    <!--    Role selectRoleByR_name(String r_name);-->
+    <select id="selectRoleByR_name" parameterType="java.lang.String" resultType="cn.T4.domain.Role">
+        select * from d2_role where r_name=#{r_name}
+    </select>
+
+    <!--    List<Role> selectAllRole();-->
+    <select id="selectAllRole" resultType="cn.T4.domain.Role">
+        select * from d2_role
+    </select>
+
+
+    <!--    /*根据role id 来 对应的 权限 查询 */
+        Set<String> selectPermisisonByR_name(String r_name);-->
+
+    <!--    /*让role 增加相应的权限 */
+        void connectRoleAndPermission(@Param("r_id") Integer r_id,@Param("p_id")Integer p_id);-->
+
+
+    <!--    /*让role 减少相应的权限*/
+        void disConnectRoleAndPermission(@Param("r_id") Integer r_id,@Param("p_id") Integer p_id);-->
+
+
+</mapper>
