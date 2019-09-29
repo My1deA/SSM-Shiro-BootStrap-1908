@@ -102,38 +102,9 @@ public class UserRealm extends AuthorizingRealm {
     }
 
 
-    @Override
-    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthorizationInfo(principals);
-    }
-
-    @Override
-    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthenticationInfo(principals);
-    }
-
-    @Override
-    public void clearCache(PrincipalCollection principals) {
-        super.clearCache(principals);
-    }
-
-    public void clearAllCachedAuthorizationInfo() {
-        getAuthorizationCache().clear();
-    }
-
-    public void clearAllCachedAuthenticationInfo() {
-        getAuthenticationCache().clear();
-    }
-
-    public void clearAllCache() {
-        clearAllCachedAuthenticationInfo();
-        clearAllCachedAuthorizationInfo();
-    }
-
-
     public static void main(String[] args) {
         //注册时对数据库 密码进行加密
-        String username="permission";//用户名
+        String username="Permission";//用户名
         Object credentials="1";//密码
         String hashAlgorithmName="md5";//加密算法
         int hashIterations=2;//算法的迭代次数

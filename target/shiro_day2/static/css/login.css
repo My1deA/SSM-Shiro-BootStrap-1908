@@ -1,3 +1,4 @@
+@charset "utf-8";
 *{
     margin:0;
     padding: 0;
@@ -67,6 +68,7 @@ li{
     height: 80px;
     margin: 0 auto;
     position: relative;
+    z-index: 10;
 }
 
     /*头部logo 在左边*/
@@ -85,10 +87,10 @@ li{
     padding-top: 12px;
     box-sizing: border-box;
 }
-    /*ul 默认样式是向下*/
+
 .head-nav-ul>li{
-   /* float: left;*/
     list-style: none;
+    float: left;
     width: 20%;
     height: 78px;
     text-align: center;
@@ -200,7 +202,6 @@ li{
 .head-login-hover{
     display: none;
     position: absolute;
-    left: 0;
     top: 0;
     right: -34px;
     width: 310px;
@@ -209,7 +210,6 @@ li{
     overflow: hidden;
     background: url(//game.gtimg.cn/images/lol/v3/dark70-bg-repeat.png) repeat;
     text-align: center;
-    background-position: -500px -500px;
 }
 /*主要图片*/
 .comm-topact{
@@ -257,11 +257,11 @@ li{
     overflow: hidden;
     margin-left: 161px;
 }
-    /*列表 li*/
+
 .head-nav-sub ul>li{
     list-style: none;
     width: 20%;
-    /*float: left;*/
+    float: left;
     height: auto;
     overflow: visible;
 }

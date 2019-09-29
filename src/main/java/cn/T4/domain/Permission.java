@@ -2,7 +2,7 @@ package cn.T4.domain;
 
 import java.io.Serializable;
 
-public class permission implements Serializable {
+public class Permission implements Serializable {
     private Integer id;
     private String permission;
     private String description;
@@ -42,9 +42,9 @@ public class permission implements Serializable {
 
     @Override
     public String toString() {
-        return "permission{" +
+        return "Permission{" +
                 "id=" + id +
-                ", permission='" + permission + '\'' +
+                ", Permission='" + permission + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';

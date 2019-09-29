@@ -102,14 +102,14 @@ public class Quickstart {
             log.info("Hello, mere mortal.");
         }
 
-        //test a typed permission (not instance-level)
+        //test a typed Permission (not instance-level)
         if (currentUser.isPermitted("lightsaber:wield")) {
             log.info("You may use a lightsaber ring.  Use it wisely.");
         } else {
             log.info("Sorry, lightsaber rings are for schwartz masters only.");
         }
 
-        //a (very powerful) Instance Level permission:
+        //a (very powerful) Instance Level Permission:
         if (currentUser.isPermitted("winnebago:drive:eagle5")) {
             log.info("You are permitted to 'drive' the winnebago with license plate (id) 'eagle5'.  " +
                     "Here are the keys - have fun!");

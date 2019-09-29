@@ -4,24 +4,29 @@ $(document).ready(function() {
     var time = 3000;
     var timer = null;
     var length = $('.prome-title-list').children.length;//有多少张图片
-    var width = 820;
+    var width = 820;//1张图片长度 一共有5张
 
     auto();//无脑自动循环
 
-
-
+    //轮播图下面的标题被 鼠标移入
     $('.prome-title-list span').hover(function () {
+        //暂停轮播效果
         clearInterval(timer);
+        //获得标题的index
         index = $(this).index();
+        //将这个标题添加一个select的类 其他标题移除这个select类
         $(this).addClass("span_select").siblings().removeClass("span_select");
+        //根据下标将 轮播画面 移动到 该图片的位置上
         $(".prome-item-list").animate({left: -index * width}, 300);
 
     }, function () {
+        //鼠标移出
         auto(timer);
     });
 
     function auto() {
         timer = setInterval(function () {
+            //3s切换下个图片以及标题
             nextPicture();
             nextTile();
         }, time);
@@ -57,7 +62,9 @@ $(document).ready(function() {
     //新闻界面
     $('.m-news-title li').mouseover(function () {
         /*alert(123);*/
+        //获取相应的 标题 下标 标题一共有5个
         var tilte_index = $(this).index();
+        //标题 内容 对于index添加 Class='select' 其他都移除 Class='select'
         $(this).addClass("select").siblings().removeClass("select");
         $('.m-news-content .m-news-content-ul').eq(tilte_index).addClass("select").siblings().removeClass("select");
     });

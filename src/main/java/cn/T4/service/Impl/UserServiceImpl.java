@@ -3,9 +3,11 @@ package cn.T4.service.Impl;
 import cn.T4.domain.User;
 import cn.T4.mapper.UserMapper;
 import cn.T4.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -37,6 +39,28 @@ public class UserServiceImpl implements UserService {
     public User selectUserByUsername(String username) {
         return userMapper.selectUserByUsername(username);
     }
+
+    @Override
+    public List<User> selectAllUser() {
+        return userMapper.selectAllUser();
+    }
+
+    @Override
+    public Set<String> selectR_nameByUsername(String username) {
+        return userMapper.selectR_nameByUsername(username);
+    }
+
+    @Override
+    public void connectUserAndRole(Integer u_id, Integer r_id) {
+        userMapper.connectUserAndRole(u_id,r_id);
+    }
+
+    @Override
+    public void disConnectUserAndRole(Integer u_id, Integer r_id) {
+        userMapper.disConnectUserAndRole(u_id,r_id);
+    }
+
+
 
     @Override
     public Set<String> selectRnameByUsername(String username) {

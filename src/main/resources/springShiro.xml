@@ -215,11 +215,11 @@
             </value>
         </property>
 
-        <!--工厂注入-->
+        <!--工厂注入 -->
         <!--<property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"></property>-->
     </bean>
 
-    <!--工厂注入-->
+    <!--工厂注入 通过 数据库的 rescource 表 得到 data 放入 Map 中-->
     <!--工厂注入 构建bean-->
    <!-- <bean id="filterChainDefinitionMapBuilder" class="cn.T4.credentials.FilterChainDefinitionMapBuilder"></bean>
     <bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder" factory-method="builder"></bean>-->
