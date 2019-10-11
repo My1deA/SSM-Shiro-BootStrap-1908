@@ -70,7 +70,7 @@ public class UserRealm extends AuthorizingRealm {
         String username= (String) principals.getPrimaryPrincipal();
        /* System.out.println(username+"123");*/
         //得到角色
-        Set<String> roles=userService.selectRnameByUsername(username);
+        Set<String> roles=userService.selectR_nameByUsername(username);
         Iterator<String> it1= roles.iterator();
         while (it1.hasNext()) {
             String str = it1.next();
@@ -81,6 +81,11 @@ public class UserRealm extends AuthorizingRealm {
             /*roles=userService.selectRoleAllRname();*/
             roles.remove("admin");
         }
+
+        //得到权限
+        Set<String> permissions=userService.selectP_nameByUsername(username);
+
+
       /*  Iterator<String> it = roles.iterator();
         while (it.hasNext()) {
             String str = it.next();
@@ -88,7 +93,9 @@ public class UserRealm extends AuthorizingRealm {
         }*/
 
         //给当前用户赋予相应的角色
-        AuthorizationInfo info =new SimpleAuthorizationInfo(roles);
+        SimpleAuthorizationInfo info =new SimpleAuthorizationInfo(roles);
+        info.addStringPermissions(permissions);
+
         return info;
     }
 

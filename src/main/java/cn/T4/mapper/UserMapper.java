@@ -29,6 +29,7 @@ public interface UserMapper {
     /*以下是自己标注*/
     //通过多对多关系查询角色
     Set<String> selectR_nameByUsername(String username);
+    Set<String> selectP_nameByUsername(String username);
 
     //将 用户id 与 role id想关联
     void connectUserAndRole(@Param("u_id") Integer u_id, @Param("r_id") Integer r_id);
@@ -37,6 +38,7 @@ public interface UserMapper {
     void disConnectUserAndRole(@Param("u_id")Integer u_id,@Param("r_id")Integer r_id);
 
 
+    /*useless*/
     //demo 根据用户名查询所有的角色信息
     Set<String> selectRnameByUsername(String username);//直接
 

@@ -24,6 +24,7 @@ public interface UserService {
     List<User> selectAllUser();
 
     Set<String> selectR_nameByUsername(String username);
+    Set<String> selectP_nameByUsername(String username);
 
     //将 用户id 与 role id想关联
     void connectUserAndRole(Integer u_id, Integer r_id);

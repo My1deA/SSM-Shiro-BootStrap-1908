@@ -104,12 +104,10 @@
 
 
 
-
-
 <!--    /*以下是自己标注*/
     //通过多对多关系查询 角色
     Set<String> selectR_nameByUsername(String username);-->
-    <select id="selectR_nameByUsername" resultType="java.lang.String" parameterType="String">
+    <select id="selectR_nameByUsername" resultType="java.lang.String" parameterType="java.lang.String">
         select r.r_name from  d2_user u,d2_role r,d2_user_role ur
         where
         u.username=#{username}
@@ -118,6 +116,17 @@
         and
         ur.r_id=r.id
     </select>
+
+    <!--Set<String> selectP_nameByUsername(String username);-->
+    <select id="selectP_nameByUsername"  parameterType="java.lang.String" resultType="java.lang.String">
+        select p.p_name from d2_user u,d2_user_role ur,d2_role r,d2_role_permission rp,d2_permission p
+        where username=#{username}
+        and u.id=ur.u_id
+        and ur.r_id=r.id
+        and r.id=rp.r_id
+        and rp.p_id=p.id
+    </select>
+
 
 <!--    //将 用户id 与 role id想关联
     void connectUserAndRole(@Param("u_id") Integer u_id, @Param("r_id") Integer r_id);-->

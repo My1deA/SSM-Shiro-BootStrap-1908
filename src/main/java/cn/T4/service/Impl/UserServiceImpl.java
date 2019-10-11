@@ -49,6 +49,8 @@ public class UserServiceImpl implements UserService {
     public Set<String> selectR_nameByUsername(String username) {
         return userMapper.selectR_nameByUsername(username);
     }
+    @Override
+    public Set<String> selectP_nameByUsername(String username){return userMapper.selectP_nameByUsername(username);}
 
     @Override
     public void connectUserAndRole(Integer u_id, Integer r_id) {

@@ -94,7 +94,7 @@
     <!--    /*根据role id 来 对应的 权限 查询 */
         Set<String> selectPermisisonByR_name(String r_name);-->
     <select id="selectPermisisonByR_name" parameterType="java.lang.String" resultType="String">
-        select p.permission from d2_role r,d2_permission p,d2_role_permission rp
+        select p.p_name from d2_role r,d2_permission p,d2_role_permission rp
         where r.id=rp.r_id
         and rp.p_id=p.id
         and r_name=#{r_name}

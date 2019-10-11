@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Permission implements Serializable {
     private Integer id;
-    private String permission;
+    private String p_name;
     private String description;
     private Integer status;
 
@@ -16,12 +16,12 @@ public class Permission implements Serializable {
         this.id = id;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getP_name() {
+        return p_name;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setP_name(String p_name) {
+        this.p_name = p_name;
     }
 
     public String getDescription() {
@@ -44,7 +44,7 @@ public class Permission implements Serializable {
     public String toString() {
         return "Permission{" +
                 "id=" + id +
-                ", Permission='" + permission + '\'' +
+                ", Permission='" + p_name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';

@@ -87,7 +87,7 @@ li{
     padding-top: 12px;
     box-sizing: border-box;
 }
-
+    /*ul 默认样式是向下*/
 .head-nav-ul>li{
     list-style: none;
     float: left;
@@ -257,7 +257,7 @@ li{
     overflow: hidden;
     margin-left: 161px;
 }
-
+    /*列表 li*/
 .head-nav-sub ul>li{
     list-style: none;
     width: 20%;
