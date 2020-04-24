@@ -7,7 +7,7 @@
 
 * 1. 登录界面
 <img src='https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xOTExMzA1NC1iYzlmNDFmM2ZjY2Y0Njk5LnBuZw?x-oss-process=image/format,png' 
-alt='登录界面' width='450'>
+alt='登录界面' height='450'>
 
 
 #### 软件架构
